@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Strategi optimasi kernel Linux dan TCP stack untuk menangani traffic tinggi pada landing page dan aplikasi web.">
+    <title>High-Traffic Linux Optimization | Chesta Azka Sofyan</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Mono&display=swap" rel="stylesheet">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+
+    <style>
+        :root { --bg: #030303; --text: #e4e4e7; --accent: #3b82f6; --glass: rgba(255, 255, 255, 0.02); --border: rgba(255, 255, 255, 0.08); }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.8; overflow-x: hidden; }
+        .mono { font-family: 'Space Mono', monospace; }
+        .article-content h2 { font-size: 1.8rem; font-weight: 800; color: white; margin-top: 3rem; margin-bottom: 1rem; font-style: italic; }
+        .article-content p { margin-bottom: 1.5rem; color: #a1a1aa; font-size: 1.05rem; }
+        pre[class*="language-"] { background: #0a0a0a !important; border: 1px solid var(--border) !important; border-radius: 20px !important; padding: 1.5rem !important; }
+        #progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--accent); z-index: 1000; width: 0%; box-shadow: 0 0 10px var(--accent); }
+        .bento-nav { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--border); border-radius: 100px; }
+    </style>
+</head>
+<body class="selection:bg-blue-600">
+
+    <div id="progress-bar"></div>
+
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 w-[90%] max-w-4xl z-[100]">
+        <div class="bento-nav px-8 py-4 flex justify-between items-center shadow-2xl">
+            <a href="../logs.html" class="mono text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 hover:text-blue-500 transition flex items-center gap-2">
+                <span>←</span> BACK_TO_LOGS
+            </a>
+            <div class="hidden md:block">
+                <span class="mono text-[8px] text-blue-500 font-bold uppercase tracking-widest italic animate-pulse">● LOG_ENTRY: SYS_INFRA</span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="max-w-3xl mx-auto px-6 pt-40 pb-12">
+        <div class="flex flex-col items-center text-center">
+            <div class="px-4 py-1 rounded-full bg-blue-600/10 border border-blue-600/20 text-blue-500 text-[9px] font-black uppercase tracking-[0.4em] mb-8">
+                #INFRASTRUCTURE // SYSTEM_ARCH
+            </div>
+            <h1 class="text-5xl md:text-7xl font-black italic tracking-tighter leading-[0.9] mb-8 text-white uppercase">
+                Optimasi Linux untuk High-Traffic<span class="text-blue-600">_</span>
+            </h1>
+            <div class="flex items-center gap-6 mono text-[10px] text-gray-600 font-bold uppercase tracking-widest border-t border-white/5 pt-6 w-full justify-center">
+                <span>Chesta Azka</span>
+                <span class="text-blue-600">//</span>
+                <span>March 02, 2026</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-6 article-content pb-32">
+        
+        <p>Banyak pengembang mengabaikan konfigurasi sistem operasi saat membangun aplikasi. Padahal, secepat apapun kode lo, kalau **kernel Linux** lo kaku, sistem bakal tumbang di bawah ribuan request serentak.</p>
+
+        <h2>1. Tuning File Descriptors (Limits)</h2>
+        <p>Secara default, Linux membatasi jumlah file yang bisa dibuka (termasuk koneksi jaringan). Untuk server high-traffic, kita harus menaikkan limit ini agar tidak terjadi error `Too many open files`.</p>
+
+<pre><code class="language-bash"># Periksa limit saat ini
+ulimit -n
+
+# Naikkan limit di /etc/security/limits.conf
+* soft nofile 65535
+* hard nofile 65535
+
+# Apply perubahan
+sysctl -p
+</code></pre>
+
+        <h2>2. Optimasi TCP Stack</h2>
+        <p>Masalah paling umum pada server yang sibuk adalah antrean koneksi yang penuh. Kita perlu mengoptimalkan parameter TCP agar sistem lebih cepat melepaskan koneksi yang sudah tidak terpakai (`TIME_WAIT`).</p>
+
+<pre><code class="language-bash"># Edit /etc/sysctl.conf
+net.ipv4.tcp_fin_timeout = 15
+net.ipv4.tcp_tw_reuse = 1
+net.core.somaxconn = 4096
+net.ipv4.tcp_max_syn_backlog = 8192
+</code></pre>
+
+        <h2>3. Penggunaan Nginx sebagai Reverse Proxy</h2>
+        <p>Menggunakan Nginx bukan cuma soal routing, tapi soal **Buffering** dan **Caching**. Pastikan lo mengaktifkan Gzip compression untuk mengurangi payload data ke klien.</p>
+
+        <h2>Kesimpulan</h2>
+        <p>Infrastruktur yang kuat adalah fondasi dari user experience yang mulus. Tanpa optimasi di level OS, hardware mahal sekalipun akan terasa lambat.</p>
+
+        <div class="mt-20 p-10 rounded-[40px] bg-gradient-to-br from-blue-600/10 to-transparent border border-blue-600/20 text-center">
+            <h4 class="text-white font-black italic uppercase mb-4 tracking-tighter text-3xl">Server Lo Bermasalah?</h4>
+            <p class="text-xs text-gray-500 mb-8 max-w-sm mx-auto">Saya melayani audit infrastruktur dan optimasi performa server Linux secara mendalam.</p>
+            <a href="https://wa.me/082125447232" class="bg-blue-600 text-white px-10 py-4 rounded-full text-[10px] font-black uppercase tracking-[0.2em] hover:bg-white hover:text-black transition-all inline-block shadow-lg shadow-blue-500/20">Audit_Now()</a>
+        </div>
+    </main>
+
+    <script>
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cara setup Neovim untuk Software Architect di tahun 2026. Fokus pada efisiensi, Lua, dan terminal workflow.">
+    <title>Neovim for Software Architects | Chesta Azka Sofyan</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Mono&display=swap" rel="stylesheet">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-lua.min.js"></script>
+
+    <style>
+        :root { --bg: #030303; --text: #e4e4e7; --accent: #3b82f6; --glass: rgba(255, 255, 255, 0.02); --border: rgba(255, 255, 255, 0.08); }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.8; overflow-x: hidden; }
+        .mono { font-family: 'Space Mono', monospace; }
+        .article-content h2 { font-size: 1.8rem; font-weight: 800; color: white; margin-top: 3rem; margin-bottom: 1rem; font-style: italic; }
+        .article-content p { margin-bottom: 1.5rem; color: #a1a1aa; font-size: 1.05rem; }
+        pre[class*="language-"] { background: #0a0a0a !important; border: 1px solid var(--border) !important; border-radius: 20px !important; padding: 1.5rem !important; }
+        #progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--accent); z-index: 1000; width: 0%; box-shadow: 0 0 10px var(--accent); }
+        .bento-nav { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--border); border-radius: 100px; }
+    </style>
+</head>
+<body class="selection:bg-blue-600">
+
+    <div id="progress-bar"></div>
+
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 w-[90%] max-w-4xl z-[100]">
+        <div class="bento-nav px-8 py-4 flex justify-between items-center shadow-2xl">
+            <a href="../logs.html" class="mono text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 hover:text-blue-500 transition flex items-center gap-2">
+                <span>←</span> BACK_TO_LOGS
+            </a>
+            <div class="hidden md:block">
+                <span class="mono text-[8px] text-blue-500 font-bold uppercase tracking-widest italic animate-pulse">● LOG_ENTRY: NVIM_ARCH</span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="max-w-3xl mx-auto px-6 pt-40 pb-12">
+        <div class="flex flex-col items-center text-center">
+            <div class="px-4 py-1 rounded-full bg-blue-600/10 border border-blue-600/20 text-blue-500 text-[9px] font-black uppercase tracking-[0.4em] mb-8">
+                #WORKFLOW // ARCHITECT_LOG
+            </div>
+            <h1 class="text-5xl md:text-7xl font-black italic tracking-tighter leading-[0.9] mb-8 text-white uppercase">
+                Neovim: The Architect's Instrument<span class="text-blue-600">.</span>
+            </h1>
+            <div class="flex items-center gap-6 mono text-[10px] text-gray-600 font-bold uppercase tracking-widest border-t border-white/5 pt-6 w-full justify-center">
+                <span>Author: Chesta Azka</span>
+                <span class="text-blue-600">//</span>
+                <span>Reading: 4 Min</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-6 article-content pb-32">
+        
+        <p>Sebagai seorang <strong>Software Architect</strong>, waktu lo sangat berharga. Lo nggak butuh editor yang berat dan lambat. Lo butuh sistem yang bisa berpikir secepat otak lo. Itulah alasan kenapa Neovim menjadi pilihan utama bagi para engineer elit di tahun 2026.</p>
+
+        <h2>1. Paradigma Modal Editing</h2>
+        <p>Berhenti menggunakan mouse. Dalam arsitektur sistem yang kompleks, lo harus sering berpindah antar file backend, frontend, dan infra. Dengan Neovim, tangan lo tetap di *home row*. Efisiensi ini krusial untuk menjaga *state of flow*.</p>
+
+        <h2>2. Konfigurasi Berbasis Lua</h2>
+        <p>Neovim modern menggunakan Lua. Ini bukan cuma soal estetika, tapi soal performa. Dengan Lua, lo bisa membuat *custom plugins* yang sesuai dengan kebutuhan spesifik arsitektur lo.</p>
+
+<pre><code class="language-lua">-- Setup Keybindings Elit Chesta
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Project Viewer" })
+
+-- Efisiensi LSP (Language Server Protocol)
+local on_attach = function(_, bufnr)
+  local opts = { buffer = bufnr, remap = false }
+  vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+  vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
+end
+</code></pre>
+
+        <h2>3. Integrasi Terminal</h2>
+        <p>Seorang architect sering bermain dengan Docker, Kubernetes, dan SSH. Neovim yang berjalan di dalam terminal (atau Termux) membuat transisi antara koding dan deployment menjadi *seamless*.</p>
+
+        <h2>Kesimpulan</h2>
+        <p>Investasi waktu untuk mempelajari Neovim adalah investasi terbaik untuk karir engineering lo. Ini bukan soal editor teks, ini soal membangun <strong>Sistem Kerja</strong> yang optimal.</p>
+
+        <div class="mt-20 p-10 rounded-[40px] bg-gradient-to-br from-blue-600/10 to-transparent border border-blue-600/20 text-center relative overflow-hidden group">
+            <h4 class="text-white font-black italic uppercase mb-4 tracking-tighter text-3xl">Butuh Setup Workflow?</h4>
+            <p class="text-xs text-gray-500 mb-8 max-w-sm mx-auto">Saya melayani jasa konfigurasi environment development Linux/Termux untuk efisiensi koding maksimal.</p>
+            <a href="https://wa.me/082125447232" class="bg-blue-600 text-white px-10 py-4 rounded-full text-[10px] font-black uppercase tracking-[0.2em] hover:bg-white hover:text-black transition-all inline-block">Execute_Order()</a>
+        </div>
+    </main>
+
+    <script>
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+        };
+    </script>
+</body>
+</html>
