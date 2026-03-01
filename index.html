@@ -3,285 +3,267 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
-    <title>Chesta Azka Sofyan | Software Architect Elite 2026</title>
-    <meta name="description" content="Software Architect & Unix-grade Developer. Spesialis High-End Infrastructure & Cinematic Web Experience.">
+    <title>Chesta Azka | System Architect Elite</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Mono&display=swap" rel="stylesheet">
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
 
     <style>
         :root { 
-            --bg: #030303; --text: #ffffff; --accent: #3b82f6; 
-            --glass: rgba(255, 255, 255, 0.02); --border: rgba(255, 255, 255, 0.08);
-            --icon-filter: invert(0);
+            --bg: #030303; 
+            --accent: #3b82f6; 
+            --glass: rgba(255, 255, 255, 0.02);
+            --border: rgba(255, 255, 255, 0.08);
         }
 
-        body.light-mode {
-            --bg: #f8fafc; --text: #0f172a; --accent: #2563eb;
-            --glass: rgba(15, 23, 42, 0.03); --border: rgba(15, 23, 42, 0.1);
-            --icon-filter: invert(1);
-        }
+        * { cursor: crosshair; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
-        * { cursor: crosshair; -webkit-tap-highlight-color: transparent; }
-
         body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background-color: var(--bg); color: var(--text);
-            overflow-x: hidden; scroll-behavior: smooth;
-            transition: background-color 0.5s ease, color 0.5s ease;
+            background: var(--bg); 
+            color: white; 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
         }
-        
+
         .mono { font-family: 'Space Mono', monospace; }
 
+        /* Bento Architecture */
         .bento {
             background: var(--glass);
-            backdrop-filter: blur(40px);
+            backdrop-filter: blur(30px);
             border: 1px solid var(--border);
             border-radius: 24px;
-            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
             position: relative;
             overflow: hidden;
+            transition: border-color 0.5s ease;
         }
         
+        .bento:hover { border-color: var(--accent); }
+
+        /* 3D Canvas Fix */
+        #canvas-container {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        /* Responsive Typography */
+        .hero-title { 
+            font-size: clamp(2.2rem, 10vw, 110px); 
+            line-height: 0.85; 
+            font-weight: 800;
+        }
+
+        /* Mobile Optimization (The Empty Space Fix) */
+        .hero-height { min-height: auto; }
+        .photo-height { height: 400px; }
+
         @media (min-width: 768px) {
             .bento { border-radius: 32px; }
-            .bento:hover { 
-                border-color: var(--accent); 
-                transform: translateY(-8px);
-                box-shadow: 0 20px 40px rgba(59, 130, 246, 0.1);
-            }
+            .hero-height { min-height: 520px; }
+            .photo-height { height: auto; }
         }
 
-        #vanta-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.3; }
-        .stack-icon { filter: var(--icon-filter); transition: 0.5s; }
+        /* Animation Reveal State */
+        .reveal { opacity: 0; transform: translateY(30px); }
 
+        /* Smooth Scroll Config */
+        html.lenis { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+        /* WhatsApp Float */
         .wa-float {
-            position: fixed; bottom: 24px; right: 24px; z-index: 1000;
-            background: #25d366; color: white; width: 56px; height: 56px;
-            border-radius: 20px; display: flex; align-items: center; justify-center;
-            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+            position: fixed; bottom: 25px; right: 25px; z-index: 1000;
+            background: #25d366; width: 55px; height: 55px;
+            border-radius: 18px; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
             transition: 0.3s;
         }
-        .wa-float:hover { transform: scale(1.1) rotate(10deg); }
-
-        .responsive-h1 { font-size: clamp(2.5rem, 10vw, 100px); line-height: 0.9; }
-
-        .profile-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(100%) contrast(110%);
-            transition: 0.7s;
-        }
-        .bento:hover .profile-img {
-            filter: grayscale(0%) contrast(100%);
-            scale: 1.05;
-        }
-
-        .theme-toggle {
-            width: 40px; height: 40px; border-radius: 12px;
-            display: flex; align-items: center; justify-center;
-            background: var(--border); cursor: pointer;
-        }
-
-        /* Custom Typing Cursor Color */
-        .typed-cursor { color: var(--accent); }
+        .wa-float:hover { transform: scale(1.1) rotate(5deg); }
     </style>
 </head>
-<body class="dark-mode">
+<body>
 
-    <a href="https://wa.me/6282125447232" target="_blank" class="wa-float flex items-center justify-center">
-        <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.246 2.248 3.484 5.232 3.484 8.412 0 6.556-5.338 11.892-11.893 11.892-1.997-.001-3.951-.499-5.688-1.447l-6.309 1.656zm6.223-3.081c1.517.898 3.178 1.373 4.874 1.374h.005c5.733 0 10.395-4.661 10.397-10.393.001-2.777-1.077-5.387-3.039-7.35s-4.572-3.04-7.348-3.04c-5.732 0-10.395 4.661-10.397 10.393-.001 1.836.479 3.626 1.39 5.2l-.938 3.428 3.518-.922zm10.334-7.662c-.287-.144-1.697-.838-1.959-.933-.261-.096-.452-.144-.643.144-.191.288-.739.933-.906 1.124-.167.192-.334.216-.621.072-.288-.145-1.215-.448-2.313-1.43-.855-.762-1.431-1.705-1.599-1.993-.167-.288-.018-.444.126-.587.13-.129.287-.335.431-.503.143-.168.191-.288.287-.479.096-.192.048-.36-.024-.503-.072-.144-.643-1.554-.881-2.129-.231-.557-.468-.48-.643-.489-.166-.008-.358-.01-.55-.01s-.502.072-.765.36c-.263.288-1.004.982-1.004 2.396 0 1.415 1.028 2.784 1.171 2.976.143.192 2.024 3.09 4.803 4.288.661.285 1.177.455 1.579.582.663.211 1.267.181 1.744.11.532-.08 1.697-.693 1.936-1.363.239-.67.239-1.246.167-1.363-.072-.117-.263-.191-.55-.335z"/></svg>
+    <a href="https://wa.me/6282125447232" target="_blank" class="wa-float">
+        <svg width="28" height="28" fill="white" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.246 2.248 3.484 5.232 3.484 8.412 0 6.556-5.338 11.892-11.893 11.892-1.997-.001-3.951-.499-5.688-1.447l-6.309 1.656zm6.223-3.081c1.517.898 3.178 1.373 4.874 1.374h.005c5.733 0 10.395-4.661 10.397-10.393.001-2.777-1.077-5.387-3.039-7.35s-4.572-3.04-7.348-3.04c-5.732 0-10.395 4.661-10.397 10.393-.001 1.836.479 3.626 1.39 5.2l-.938 3.428 3.518-.922zm10.334-7.662c-.287-.144-1.697-.838-1.959-.933-.261-.096-.452-.144-.643.144-.191.288-.739.933-.906 1.124-.167.192-.334.216-.621.072-.288-.145-1.215-.448-2.313-1.43-.855-.762-1.431-1.705-1.599-1.993-.167-.288-.018-.444.126-.587.13-.129.287-.335.431-.503.143-.168.191-.288.287-.479.096-.192.048-.36-.024-.503-.072-.144-.643-1.554-.881-2.129-.231-.557-.468-.48-.643-.489-.166-.008-.358-.01-.55-.01s-.502.072-.765.36c-.263.288-1.004.982-1.004 2.396 0 1.415 1.028 2.784 1.171 2.976.143.192 2.024 3.09 4.803 4.288.661.285 1.177.455 1.579.582.663.211 1.267.181 1.744.11.532-.08 1.697-.693 1.936-1.363.239-.67.239-1.246.167-1.363-.072-.117-.263-.191-.55-.335z"/></svg>
     </a>
 
-    <nav class="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 w-[92%] max-w-6xl z-[100]">
-        <div class="bento px-4 md:px-8 py-3 flex justify-between items-center backdrop-blur-xl">
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 w-[92%] max-w-6xl z-[100]">
+        <div class="bento px-6 md:px-10 py-4 flex justify-between items-center bg-black/30">
             <div class="flex items-center gap-3">
-                <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-black italic text-white">C</div>
+                <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-black italic text-white shadow-[0_0_20px_rgba(59,130,246,0.5)]">C</div>
                 <span class="font-black tracking-tighter text-xs md:text-sm uppercase">CHESTA<span class="text-blue-500">.</span>ARCH</span>
             </div>
-            
-            <div class="hidden lg:flex gap-6 text-[9px] mono font-bold uppercase tracking-widest text-gray-500">
+            <div class="hidden md:flex gap-8 mono text-[10px] font-bold uppercase tracking-widest opacity-50">
                 <a href="#services" class="hover:text-blue-500 transition">/Services</a>
-                <a href="#articles" class="hover:text-blue-500 transition">/Logs</a>
-                <a href="https://wa.me/6282125447232" class="hover:text-blue-500 transition">/Hire_Me</a>
+                <a href="#" class="hover:text-blue-500 transition">/Stack</a>
+                <a href="https://wa.me/6282125447232" class="hover:text-blue-500 transition">/Connect</a>
             </div>
-
-            <div class="flex items-center gap-4">
-                <div class="theme-toggle" onclick="toggleTheme()" id="theme-btn">
-                    <span id="theme-icon">🌙</span>
-                </div>
-            </div>
+            <div class="w-2 h-2 rounded-full bg-blue-500 animate-ping"></div>
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-4 md:px-6 pt-28 md:pt-36 grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 relative z-10">
-        <div class="md:col-span-8 bento p-8 md:p-16 flex flex-col justify-end min-h-[450px]" data-aos="fade-right">
-            <div class="mb-auto flex justify-between items-start">
-                <span class="mono text-blue-500 text-[9px] font-black tracking-[0.5em] uppercase italic animate-pulse">● node_active: 2026.v1</span>
+    <main class="max-w-7xl mx-auto px-4 pt-28 md:pt-40 grid grid-cols-1 md:grid-cols-12 gap-5">
+        
+        <div class="md:col-span-8 bento p-8 md:p-16 flex flex-col justify-end hero-height reveal" id="hero-card">
+            <div class="mb-auto">
+                <span class="mono text-blue-500 text-[10px] font-black tracking-[0.6em] uppercase italic">● system_operational: 2026.v1</span>
             </div>
-            <h1 class="responsive-h1 font-black italic tracking-tighter mb-8 uppercase">
-                <span id="typed-title"></span><span class="text-blue-600">.</span>
+            <h1 class="hero-title uppercase italic mb-8">
+                <span id="typed-title"></span><br>
+                <span class="text-blue-600">PROTOCOL.</span>
             </h1>
-            <div class="flex flex-wrap gap-4 mt-4">
-                <div class="px-4 py-2 bg-white/5 border border-white/10 rounded-full mono text-[8px] uppercase tracking-widest">Available for Hire</div>
-                <div class="px-4 py-2 bg-blue-600/10 border border-blue-500/20 rounded-full mono text-[8px] text-blue-500 uppercase tracking-widest">Bogor, Indonesia</div>
+            <div class="flex flex-wrap gap-3">
+                <div class="px-4 py-2 bg-white/5 border border-white/10 rounded-full mono text-[9px] uppercase tracking-widest">Available_For_Hire</div>
+                <div class="px-4 py-2 bg-blue-600/10 border border-blue-500/20 rounded-full mono text-[9px] text-blue-500 uppercase tracking-widest italic font-bold">Bogor, Indonesia</div>
             </div>
         </div>
 
-        <div class="md:col-span-4 bento overflow-hidden relative min-h-[450px] group shadow-2xl" data-aos="fade-left">
-            <div id="vanta-canvas"></div>
-            <div class="absolute inset-0 z-10">
-                <img src="poto.jpg" alt="Chesta Azka" class="profile-img">
-            </div>
-            <div class="absolute bottom-6 left-6 right-6 z-20 bento p-4 backdrop-blur-md bg-black/40 border-white/10 translate-y-20 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                <div class="mono text-[10px] text-blue-500 font-bold mb-1 tracking-widest italic">CHESTA_AZKA</div>
-                <div class="text-[8px] text-gray-400 font-mono leading-tight">
-                    { role: "Software Architect",<br>
-                      base: "Bogor, ID",<br>
-                      status: "Operational" }
-                </div>
+        <div class="md:col-span-4 bento photo-height group reveal" id="photo-card">
+            <div id="canvas-container"></div>
+            <img src="poto.jpg" class="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000 scale-110 group-hover:scale-100" alt="Chesta">
+            <div class="absolute bottom-6 left-6 right-6 z-20 bento p-4 backdrop-blur-md border-white/5 bg-black/40 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-700">
+                <p class="mono text-[10px] text-blue-500 font-bold tracking-widest italic">CHESTA_AZKA</p>
+                <p class="text-[8px] opacity-50 uppercase mt-1">Software Architect // Unix Specialist</p>
             </div>
         </div>
 
-        <div class="md:col-span-7 bento p-6 md:p-10 min-h-[160px]" data-aos="fade-up">
-            <div class="flex gap-2 mb-6">
-                <div class="w-2 h-2 rounded-full bg-red-500/40"></div>
-                <div class="w-2 h-2 rounded-full bg-yellow-500/40"></div>
-                <div class="w-2 h-2 rounded-full bg-green-500/40"></div>
+        <div class="md:col-span-7 bento p-6 md:p-10 reveal" id="terminal-card">
+            <div class="flex gap-2 mb-6 opacity-30">
+                <div class="w-2 h-2 rounded-full bg-red-500"></div>
+                <div class="w-2 h-2 rounded-full bg-yellow-500"></div>
+                <div class="w-2 h-2 rounded-full bg-green-500"></div>
             </div>
             <div class="mono text-xs md:text-sm text-gray-400 font-bold leading-relaxed">
-                <span class="text-blue-500 italic">chesta@machine:~$</span> <span id="typed-terminal"></span>
+                <span class="text-blue-500 italic">chesta@arch:~$</span> <span id="typed-terminal"></span>
             </div>
         </div>
 
-        <div class="md:col-span-5 bento p-8 flex flex-col items-center justify-center" data-aos="fade-up">
-            <p class="mono text-[8px] text-gray-600 mb-8 uppercase tracking-[0.4em]">Integrated_Stack</p>
-            <div class="grid grid-cols-4 gap-6">
-                <img src="https://cdn.simpleicons.org/vuedotjs/white" width="28" class="stack-icon" title="Vue.js">
-                <img src="https://cdn.simpleicons.org/tailwindcss/white" width="28" class="stack-icon" title="Tailwind">
-                <img src="https://cdn.simpleicons.org/linux/white" width="28" class="stack-icon" title="Linux">
-                <img src="https://cdn.simpleicons.org/docker/white" width="28" class="stack-icon" title="Docker">
-                <img src="https://cdn.simpleicons.org/neovim/white" width="28" class="stack-icon" title="Neovim">
-                <img src="https://cdn.simpleicons.org/go/white" width="28" class="stack-icon" title="Go Lang">
-                <img src="https://cdn.simpleicons.org/postgresql/white" width="28" class="stack-icon" title="PostgreSQL">
-                <img src="https://cdn.simpleicons.org/nixos/white" width="28" class="stack-icon" title="NixOS">
+        <div class="md:col-span-5 bento p-8 flex flex-col items-center justify-center reveal" id="stack-card">
+            <p class="mono text-[8px] text-gray-600 mb-8 uppercase tracking-[0.5em]">Integrated_Stack</p>
+            <div class="grid grid-cols-4 gap-8 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-1000">
+                <img src="https://cdn.simpleicons.org/vuedotjs/white" width="28" title="Vue.js">
+                <img src="https://cdn.simpleicons.org/three.js/white" width="28" title="Three.js">
+                <img src="https://cdn.simpleicons.org/docker/white" width="28" title="Docker">
+                <img src="https://cdn.simpleicons.org/linux/white" width="28" title="Linux">
             </div>
         </div>
+
     </main>
 
-    <div class="marquee-wrap relative z-10 my-16 border-y border-white/5 py-10 overflow-hidden">
-        <div class="marquee-item italic text-blue-500/10 text-5xl font-black whitespace-nowrap" id="marquee">CHESTA ARCHITECT • HIGH-PERFORMANCE • SYSTEM DESIGN • SCALABLE INFRASTRUCTURE • </div>
+    <div class="my-20 border-y border-white/5 py-12 overflow-hidden reveal">
+        <div class="whitespace-nowrap italic text-blue-500/10 text-6xl md:text-8xl font-black uppercase tracking-tighter" id="marquee">
+            CHESTA ARCHITECT • SYSTEM DESIGN • SCALABLE INFRASTRUCTURE • HIGH PERFORMANCE • 
+        </div>
     </div>
 
-    <section id="services" class="max-w-7xl mx-auto px-4 md:px-6 pb-20">
+    <section id="services" class="max-w-7xl mx-auto px-4 pb-24">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="bento p-10 flex flex-col justify-between" data-aos="fade-up">
-                <div>
-                    <span class="mono text-blue-500 text-[10px] font-black uppercase tracking-widest">/01 Basic</span>
-                    <h4 class="text-6xl font-black italic my-6 tracking-tighter">450K</h4>
-                    <p class="text-[10px] text-gray-500 uppercase italic mb-8">Premium Performance</p>
-                </div>
-                <a href="https://wa.me/6282125447232" class="block w-full py-4 bg-blue-600 text-white rounded-xl text-center text-[10px] font-black uppercase tracking-widest hover:brightness-110 transition">Order_Service</a>
+            <div class="bento p-10 flex flex-col justify-between reveal">
+                <h4 class="text-6xl font-black italic mb-4">450K</h4>
+                <p class="mono text-[10px] text-gray-500 uppercase italic mb-8">Premium Landing Page Design</p>
+                <a href="https://wa.me/6282125447232" class="py-4 bg-blue-600 rounded-xl text-center text-[10px] font-black uppercase tracking-widest hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] transition">Deploy_Site</a>
             </div>
-            <div class="bento p-10 flex flex-col justify-between border-blue-500/20" data-aos="fade-up" data-aos-delay="100">
-                <div>
-                    <span class="mono text-blue-500 text-[10px] font-black uppercase tracking-widest">/02 Fullstack</span>
-                    <h4 class="text-6xl font-black italic my-6 tracking-tighter">2.5M<span class="text-xl">+</span></h4>
-                    <p class="text-[10px] text-gray-500 uppercase italic mb-8">System Infrastructure</p>
-                </div>
-                <a href="https://wa.me/6282125447232" class="block w-full py-4 border border-blue-500/40 text-blue-500 rounded-xl text-center text-[10px] font-black uppercase tracking-widest hover:bg-blue-600 hover:text-white transition">Consult_Now</a>
+            <div class="bento p-10 border-blue-500/20 flex flex-col justify-between reveal">
+                <h4 class="text-6xl font-black italic mb-4">2.5M+</h4>
+                <p class="mono text-[10px] text-gray-500 uppercase italic mb-8">Fullstack Infrastructure System</p>
+                <a href="https://wa.me/6282125447232" class="py-4 border border-blue-500/40 text-blue-500 rounded-xl text-center text-[10px] font-black uppercase tracking-widest hover:bg-blue-600 hover:text-white transition">Build_System</a>
             </div>
-            <div class="bento p-10 flex flex-col justify-between opacity-60" data-aos="fade-up" data-aos-delay="200">
-                <div>
-                    <h4 class="text-4xl font-black italic mb-4 uppercase">Enterprise</h4>
-                    <p class="text-[10px] text-gray-500 uppercase italic">Scalable infrastructure Design.</p>
-                </div>
-                <button class="py-4 bg-white/5 rounded-xl text-[10px] font-black uppercase opacity-50">Locked</button>
+            <div class="bento p-10 flex items-center justify-center opacity-20 reveal">
+                <p class="mono text-xs uppercase tracking-[0.5em]">Enterprise_Locked</p>
             </div>
         </div>
     </section>
 
-    <section class="max-w-7xl mx-auto px-4 md:px-6 py-10">
-        <div class="swiper mySwiper">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="bento p-10 text-center">
-                        <p class="text-lg italic text-gray-400 mb-6 font-medium">"Landing page rasa Apple. Sangat cinematic dan high-class!"</p>
-                        <h5 class="text-blue-500 font-black text-[10px] tracking-widest uppercase">// PROJECT_MANAGER_X</h5>
-                    </div>
-                </div>
-            </div>
+    <footer class="py-24 text-center px-4 relative">
+        <div class="bento max-w-4xl mx-auto p-16 md:p-28 reveal">
+            <h3 class="text-6xl md:text-9xl font-black italic uppercase mb-12 leading-none tracking-tighter">Let's Build_</h3>
+            <a href="https://wa.me/6282125447232" class="inline-block bg-white text-black px-12 py-5 rounded-full text-[10px] font-black uppercase tracking-widest hover:scale-110 transition duration-500">Initialize_Protocol()</a>
         </div>
-    </section>
-
-    <footer class="py-20 text-center px-4 relative z-10">
-        <div class="bento max-w-4xl mx-auto p-12 md:p-20 overflow-hidden relative">
-            <h3 class="text-5xl md:text-8xl font-black italic uppercase mb-10 leading-none">Lets Build_</h3>
-            <a href="https://wa.me/6282125447232" class="inline-block bg-blue-600 text-white px-10 py-5 rounded-full text-[10px] font-black uppercase tracking-widest hover:scale-105 transition">Connect_Protocol()</a>
-        </div>
-        <div class="mt-16 mono text-[8px] text-gray-700 tracking-[1em] uppercase italic">
-            Chesta Azka Sofyan // 2026_Edition
+        <div class="mt-20 mono text-[8px] text-gray-700 tracking-[1.5em] uppercase italic">
+            Chesta Azka Sofyan // Engineering_2026
         </div>
     </footer>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ once: true, duration: 800 });
-        gsap.registerPlugin(ScrollTrigger);
-
-        // Theme Toggle Logic
-        function toggleTheme() {
-            const body = document.body;
-            body.classList.toggle('light-mode');
-            const icon = document.getElementById('theme-icon');
-            icon.innerText = body.classList.contains('light-mode') ? '☀️' : '🌙';
+        // 1. Smooth Scrolling (Lenis)
+        const lenis = new Lenis();
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
         }
+        requestAnimationFrame(raf);
 
-        // Marquee Animation
+        // 2. Three.js - 3D Interactive Point Cloud
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        container.appendChild(renderer.domElement);
+
+        // Create Particle Sphere
+        const geometry = new THREE.IcosahedronGeometry(2, 2);
+        const material = new THREE.PointsMaterial({ color: 0x3b82f6, size: 0.05 });
+        const points = new THREE.Points(geometry, material);
+        scene.add(points);
+
+        camera.position.z = 5;
+
+        function animate3D() {
+            requestAnimationFrame(animate3D);
+            points.rotation.y += 0.003;
+            points.rotation.x += 0.001;
+            renderer.render(scene, camera);
+        }
+        animate3D();
+
+        // 3. GSAP Reveal & Marquee
+        gsap.registerPlugin(ScrollTrigger);
+        
+        document.querySelectorAll('.reveal').forEach((el) => {
+            gsap.to(el, {
+                scrollTrigger: { trigger: el, start: "top 90%" },
+                opacity: 1, y: 0, duration: 1.2, ease: "expo.out"
+            });
+        });
+
         gsap.to("#marquee", {
-            xPercent: -30,
+            xPercent: -20,
             ease: "none",
-            scrollTrigger: { trigger: ".marquee-wrap", scrub: 1 }
+            scrollTrigger: { trigger: "#marquee", scrub: 1 }
         });
 
-        // Vanta Background
-        VANTA.NET({
-            el: "#vanta-canvas",
-            mouseControls: true, touchControls: true, minHeight: 200.00,
-            scale: 1.00, scaleMobile: 1.00,
-            color: 0x3b82f6, backgroundColor: 0x030303,
-            points: 10.00, maxDistance: 20.00, spacing: 18.00
-        });
-
-        // NEW: Typed.js for Main Title
+        // 4. Typing Effects
         new Typed('#typed-title', {
-            strings: ['System Architect', 'Fullstack Engineer', 'UI/UX Designer'],
-            typeSpeed: 200, backSpeed: 60, loop: true, cursorChar: '_'
+            strings: ['SYSTEM ARCHITECT', 'FULLSTACK ENGINEER', 'UNIX SPECIALIST'],
+            typeSpeed: 60, backSpeed: 30, loop: true, cursorChar: '_'
         });
 
-        // Terminal Typing
         new Typed('#typed-terminal', {
-            strings: ['architect --init^1000', 'Loading chesta-profile...^500', 'Environment: Production^500', 'Status: Ready to Build^2000'],
-            typeSpeed: 30, backSpeed: 15, loop: true
+            strings: [
+                'architect --init^1000', 
+                'Loading engineering_core... DONE^500', 
+                'Status: High_Performance_Active^2000'
+            ],
+            typeSpeed: 30, loop: true
         });
 
-        // Swiper
-        new Swiper(".mySwiper", {
-            effect: "coverflow", centeredSlides: true, slidesPerView: "auto",
-            autoplay: { delay: 3000 },
-            coverflowEffect: { rotate: 0, stretch: 0, depth: 100, modifier: 2, slideShadows: false },
-            breakpoints: { 320: { slidesPerView: 1.1 }, 1024: { slidesPerView: 2 } }
+        // Resize Handler
+        window.addEventListener('resize', () => {
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
         });
     </script>
 </body>
